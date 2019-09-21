@@ -31,15 +31,16 @@ class Search extends Component {
     }
 
     handleKeyDown(){
-        // call redux thunk to hit star wars endpoint here and then put data on store
         const {selected, input} = this.state;
+        const {getRes, navigation} = this.props;
         if(selected === '' || input === '') this.setState({formError: true});
         else {
             this.setState({formError: false});
-            this.props.getRes({'section': selected, 'searchQuery': input});
+            getRes({'section': selected, 'searchQuery': input});
+            navigation.push('Results');
         };
     }
-å
+
     render(){
         const {container, input} = styles;
         return (

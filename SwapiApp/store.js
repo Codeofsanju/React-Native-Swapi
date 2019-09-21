@@ -17,6 +17,6 @@ export default createStore(
     composeWithDevTools(applyMiddleware(
         axiosMiddleware(client),
         thunkMiddleware.withExtraArgument({axios}),
-        loggingMiddleWare
+        // loggingMiddleWare
     ))
-)
+);
