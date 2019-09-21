@@ -11,7 +11,7 @@ class Search extends Component {
         this.state = {
             selected: '',
             input: '',
-            error: false,
+            formError: false,
         };
         this.onIconTap = this.onIconTap.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
@@ -33,15 +33,16 @@ class Search extends Component {
     handleKeyDown(){
         // call redux thunk to hit star wars endpoint here and then put data on store
         const {selected, input} = this.state;
-        if(selected === '' || input === '') this.setState({error: true});
+        if(selected === '' || input === '') this.setState({formError: true});
         else {
-            this.setState({error: false});
-            this.props.getRes({'section': selected, 'searchQuery': input})
+            this.setState({formError: false});
+            this.props.getRes({'section': selected, 'searchQuery': input});
         };
     }
 å
     render(){
         const {container, input} = styles;
+        console.log('asdjhfkjasdhflasf', this.props.results);
         return (
             <KeyboardAvoidingView style={container} behavior="padding" enabled>
                     <FontAwesome onPress={() => this.onIconTap('spaceships')}  name='space-shuttle' color={this.state.selected === 'spaceships' ? '#FFE81F':'white'} size={60}/> 
@@ -55,9 +56,14 @@ class Search extends Component {
                         returnKeyType='done'
                         onSubmitEditing = {() => this.handleKeyDown()}
                     />
+
                     { 
-                        this.state.error && <Text style={{color:'white'}}>Please fill whole form!</Text>
+                        this.state.formError && <Text style={{color:'white'}}>Please fill whole form!</Text>
                     }
+                    {
+                        this.props.results && this.props.results.count === 0 && <Text style={{color:'white'}}>No results for that search!</Text>
+                    }
+                    
             </KeyboardAvoidingView>
         );
     }
@@ -91,5 +97,10 @@ const mapDispatchToProps = (dispatch) => {
         getRes: (searchObj) => dispatch(getSearchThunk(searchObj))
     };
 };
+const mapStateToProps = (state) => {
+    return {
+        results: state.searchRes
+    };
+};
 
-export default connect(null, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
