@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
-import {Keyboard, StyleSheet, TextInput, KeyboardAvoidingView} from 'react-native';
+import {Text, StyleSheet, TextInput, KeyboardAvoidingView} from 'react-native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import {getSearchThunk} from '../reducer';
 
 
-export default class Search extends Component {
+class Search extends Component {
     constructor(props){
         super(props);
         this.state = {
             selected: '',
-            input: ''
+            input: '',
+            error: false,
         };
         this.onIconTap = this.onIconTap.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
@@ -29,9 +32,14 @@ export default class Search extends Component {
 
     handleKeyDown(){
         // call redux thunk to hit star wars endpoint here and then put data on store
-        console.log(this.state);
+        const {selected, input} = this.state;
+        if(selected === '' || input === '') this.setState({error: true});
+        else {
+            this.setState({error: false});
+            this.props.getRes({'section': selected, 'searchQuery': input})
+        };
     }
-
+å
     render(){
         const {container, input} = styles;
         return (
@@ -47,6 +55,9 @@ export default class Search extends Component {
                         returnKeyType='done'
                         onSubmitEditing = {() => this.handleKeyDown()}
                     />
+                    { 
+                        this.state.error && <Text style={{color:'white'}}>Please fill whole form!</Text>
+                    }
             </KeyboardAvoidingView>
         );
     }
@@ -75,3 +86,10 @@ const styles = StyleSheet.create({
 });
 
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getRes: (searchObj) => dispatch(getSearchThunk(searchObj))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Search);

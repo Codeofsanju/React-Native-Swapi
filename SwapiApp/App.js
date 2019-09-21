@@ -4,6 +4,11 @@ import {createStackNavigator, CreateAppContainer} from 'react-navigation-stack';
 import Search from './components/Search';
 import { createAppContainer } from 'react-navigation';
 
+
+import {Provider, connect} from 'react-redux';
+import store from './store';
+
+
 const StackNav = createStackNavigator({
   Search: Search
 }, {
@@ -14,6 +19,14 @@ const StackNav = createStackNavigator({
   }
 });
 
-const App = createAppContainer(StackNav);
+const Navigation = createAppContainer(StackNav);
 
-export default App;
+export default class App extends Component{
+  render(){
+    return (
+      <Provider store={store}>
+        <Navigation/>
+      </Provider> 
+    );
+  }
+}
