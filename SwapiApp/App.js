@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import {createStackNavigator, CreateAppContainer} from 'react-navigation-stack';
-import Search from './components/Search';
+import {createStackNavigator} from 'react-navigation-stack';
+import {Search, Results} from './components';
 import { createAppContainer } from 'react-navigation';
 
 
@@ -10,7 +10,8 @@ import store from './store';
 
 
 const StackNav = createStackNavigator({
-  Search: Search
+  Search: Search,
+  Results: Results
 }, {
   initialRouteName: 'Search',
   headerMode: 'none',

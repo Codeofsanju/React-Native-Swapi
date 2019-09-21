@@ -42,7 +42,6 @@ class Search extends Component {
 å
     render(){
         const {container, input} = styles;
-        console.log('asdjhfkjasdhflasf', this.props.results);
         return (
             <KeyboardAvoidingView style={container} behavior="padding" enabled>
                     <FontAwesome onPress={() => this.onIconTap('spaceships')}  name='space-shuttle' color={this.state.selected === 'spaceships' ? '#FFE81F':'white'} size={60}/> 
