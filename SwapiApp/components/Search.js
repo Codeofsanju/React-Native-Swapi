@@ -18,36 +18,34 @@ export default class Search extends Component {
     onIconTap(name){
         this.setState({
             selected: name
-        }, () => console.log(this.state));
+        });
     }
 
     onInputChange(text){
         this.setState({
             input: text
-        }, () => console.log(this.state));
+        });
     }
 
-    handleKeyDown(e){
-        if(e.nativeEvent.key === 'Enter'){
-            alert('hit');
-            Keyboard.dismiss();
-        }
+    handleKeyDown(){
+        // call redux thunk to hit star wars endpoint here and then put data on store
+        console.log(this.state);
     }
-
 
     render(){
+        const {container, input} = styles;
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+            <KeyboardAvoidingView style={container} behavior="padding" enabled>
                     <FontAwesome onPress={() => this.onIconTap('spaceships')}  name='space-shuttle' color={this.state.selected === 'spaceships' ? '#FFE81F':'white'} size={60}/> 
                     <Ionicons onPress={() => this.onIconTap('people')} name='ios-people' color={this.state.selected === 'people' ? '#FFE81F':'white'} size={60}/>
                     <Ionicons onPress={() => this.onIconTap('planets')} name='md-planet' color={this.state.selected === 'planets' ? '#FFE81F':'white'} size={60}/>
-                    <TextInput style={styles.input}
+                    <TextInput style={input}
                         onChangeText={(text) => this.onInputChange(text)}
                         placeholder='Search'
                         placeholderTextColor='#FFE81F'
                         keyboardType='default'
                         returnKeyType='done'
-                        onKeyPress={this.handleKeyDown}
+                        onSubmitEditing = {() => this.handleKeyDown()}
                     />
             </KeyboardAvoidingView>
         );
@@ -63,7 +61,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
     },
     input: {
-        color: '#FFE81F'
+        color: '#FFE81F',
+        width: '50%',
+        borderWidth: 5,
+        borderColor: 'white',
+        borderRadius: 25,
+        textAlign: "center",
+        marginTop: '20%'
+    },
+    icon: {
+
     }
 });
 
