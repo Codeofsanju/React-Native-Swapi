@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator, Button} from 'react-native';
 import { connect } from 'react-redux';
 import IconsRow from './iconsRow';
+import TabNavigator from './TabNavigator';
 
 
 class Results extends Component{
@@ -9,25 +10,40 @@ class Results extends Component{
         this.props.results && console.log('IN RESULTS: ', this.props.results);
         this.props.secondary && console.log(this.props.secondary);
         this.props.ternary && console.log(this.props.ternary);
-        const {container} = styles; 
-        return this.props.results && this.props.secondary ? (
-            <View style={container}>
-            <IconsRow active={this.props.navigation.getParam('active')}/>
-            { this.props.results.results.map(obj => {
-                    return <Text key={obj.url} style={{color:'white'}}>{obj.name}</Text>
-                })
-            } 
-            {
-                this.props.secondary.map(movie => {
-                    return <Text style={{color:'white'}} key={movie.episode_id}> {movie.title} </Text>
-                })
-            }
-            </View>
-        ) :
-        (
+        const {container, iconContainer} = styles; 
+        // return this.props.results && this.props.secondary ? (
+        //     <View style={container}>
+        //     <IconsRow active={this.props.navigation.getParam('active')}/>
+        //     { this.props.results.results.map(obj => {
+        //             return <Text key={obj.url} style={{color:'white'}}>{obj.name}</Text>
+        //         })
+        //     } 
+        //     {
+        //         this.props.secondary.map(movie => {
+        //             return <Text style={{color:'white'}} key={movie.episode_id}> {movie.title} </Text>
+        //         })
+        //     }
+        //     </View>
+        // ) :
+        // (
+        //     <View style={container}>
+        //         <IconsRow active={this.props.navigation.getParam('active')}/>
+        //         <ActivityIndicator size='large'/>
+        //     </View>
+        // );
+        let labels = [];
+        const toCheck = this.props.navigation.getParam('active')
+        if(toCheck === 'people'){
+            labels = ['characters', 'films', 'starships'];
+        } else if(toCheck ==='planets'){
+            labels = ['planets', 'films', 'residents']
+        } else {
+            labels = ['starships', 'films', 'pilots'];
+        }
+        return (
             <View style={container}>
                 <IconsRow active={this.props.navigation.getParam('active')}/>
-                <ActivityIndicator size='large'/>
+                <TabNavigator labels={labels}/>
             </View>
         );
     }
@@ -45,23 +61,15 @@ const mapStateToProps = (state) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
-        justifyContent: 'center',
+        flex: 1,
+        // justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'black',
     },
-    input: {
-        color: '#FFE81F',
-        width: '50%',
-        borderWidth: 5,
-        borderColor: 'white',
-        borderRadius: 25,
-        textAlign: "center",
-        marginTop: '20%'
-    },
-    icon: {
-
+    iconContainer: {
+        flex: 1
     }
+
 });
 
 export default connect(mapStateToProps, null)(Results);

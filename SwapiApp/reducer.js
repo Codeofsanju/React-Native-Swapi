@@ -6,7 +6,7 @@ const baseUrl = 'https://swapi.co/api';
 // ACTIONS
 const GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS';
 const GET_SECONDARY = 'GET_SECONDARY';
-const GET_TERNARY = 'GET_TERNARY';
+const GET_TERTIARY = 'GET_TERTIARY';
 const CLEAR = 'CLEAR';
 // ACTION CREATORS 
 const getSearch = (data) => {
@@ -23,9 +23,9 @@ const getSecondary = (data) => {
     };
 };
 
-const getTernary = (data) => {
+const getTertiary = (data) => {
     return {
-        type: GET_TERNARY,
+        type: GET_TERTIARY,
         data
     };
 };
@@ -35,6 +35,7 @@ export const clearStore = () => {
         type: CLEAR
     };
 };
+
 
 // THUNKS
 export const getSearchThunk = (searchObj) => {
@@ -55,7 +56,7 @@ export const getSearchThunk = (searchObj) => {
 
                 res.data.results.map(async person => {
                     const starships = await Promise.all(promisifiedDataHelper(person.starships));
-                    dispatch(getTernary(starships));
+                    dispatch(getTertiary(starships));
                 });
             } else if(section === 'planets'){
                 res.data.results.map(async planet => {
@@ -64,7 +65,7 @@ export const getSearchThunk = (searchObj) => {
                 });
                 res.data.results.map(async planet => {
                     const residents = await Promise.all(promisifiedDataHelper(planet.residents));
-                    dispatch(getTernary(residents));
+                    dispatch(getTertiary(residents));
                 });
             } else {
                 res.data.results.map(async starship => {
@@ -73,7 +74,7 @@ export const getSearchThunk = (searchObj) => {
                 });
                 res.data.results.map(async starship => {
                     const pilots = await Promise.all(promisifiedDataHelper(starship.pilots));
-                    dispatch(getTernary(pilots));
+                    dispatch(getTertiary(pilots));
                 });
             }
         } catch (error) {
@@ -93,7 +94,7 @@ const reducer = (state = {}, action) => {
         case GET_SECONDARY:
             return {...state, secondaryData: action.data};
 
-        case GET_TERNARY:
+        case GET_TERTIARY:
             return {...state, ternaryData: action.data};
 
         case CLEAR: {
