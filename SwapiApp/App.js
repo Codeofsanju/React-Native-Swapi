@@ -14,9 +14,9 @@ const StackNav = createStackNavigator({
   Results: Results
 }, {
   initialRouteName: 'Search',
-  headerMode: 'none',
+  headerMode: Platform.OS === 'ios' ? 'float':'none',
   navigationOptions: {
-    headerVisible: false
+    headerVisible: Platform.OS === 'ios',
   }
 });
 

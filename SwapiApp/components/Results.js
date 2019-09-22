@@ -7,16 +7,20 @@ import IconsRow from './iconsRow';
 class Results extends Component{
     render(){
         console.log('IN RESULTS: ', this.props.results);
+        console.log('MOVIES', this.props.movies);
         const {container} = styles; 
-        return this.props.results ? (
+        return this.props.results && this.props.movies ? (
             <View style={container}>
             <IconsRow active={this.props.navigation.getParam('active')}/>
             { this.props.results.results.map(obj => {
-                    return (
-                        <Text key={obj.url} style={{color:'white'}}>{obj.name}</Text>
-                    );
+                    return <Text key={obj.url} style={{color:'white'}}>{obj.name}</Text>
                 })
             } 
+            {
+                this.props.movies.map(movie => {
+                    return <Text style={{color:'white'}} key={movie.episode_id}> {movie.title} </Text>
+                })
+            }
             </View>
         ) :
         (
@@ -31,7 +35,8 @@ class Results extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        results: state.searchRes
+        results: state.searchRes,
+        movies: state.movies
     };
 };
 

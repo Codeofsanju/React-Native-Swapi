@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, TextInput, KeyboardAvoidingView} from 'react-native';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import {getSearchThunk} from '../reducer';
+import {getSearchThunk, clearStore} from '../reducer';
 
 
 class Search extends Component {
@@ -16,6 +16,10 @@ class Search extends Component {
         this.onIconTap = this.onIconTap.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+    }
+
+    componentDidMount(){
+        this.props.clear();
     }
 
     onIconTap(name){
@@ -37,7 +41,7 @@ class Search extends Component {
         else {
             this.setState({formError: false});
             getRes({'section': selected, 'searchQuery': input});
-            navigation.push('Results', {active: this.state.selected});
+            navigation.navigate('Results', {active: this.state.selected});
         };
     }
 
@@ -94,7 +98,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getRes: (searchObj) => dispatch(getSearchThunk(searchObj))
+        getRes: (searchObj) => dispatch(getSearchThunk(searchObj)),
+        clear: () => dispatch(clearStore)
     };
 };
 const mapStateToProps = (state) => {
