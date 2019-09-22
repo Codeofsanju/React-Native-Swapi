@@ -6,9 +6,9 @@ import IconsRow from './iconsRow';
 
 class Results extends Component{
     render(){
-        console.log('IN RESULTS: ', this.props.results);
-        console.log(this.props.secondary);
-        console.log(this.props.ternary);
+        this.props.results && console.log('IN RESULTS: ', this.props.results);
+        this.props.secondary && console.log(this.props.secondary);
+        this.props.ternary && console.log(this.props.ternary);
         const {container} = styles; 
         return this.props.results && this.props.secondary ? (
             <View style={container}>

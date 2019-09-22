@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {promisifiedDataHelper} from './utils';
 const baseUrl = 'https://swapi.co/api';
 
 
@@ -48,28 +49,40 @@ export const getSearchThunk = (searchObj) => {
             
             if(section === 'people'){
                 res.data.results.map(async person => {
-                    const promisefilms = person.films.map(async endpoint => {
-                        const movie = await axios.get(endpoint);
-                        return movie.data;
-                    });
-                    const films = await Promise.all(promisefilms);
+                    const films = await Promise.all(promisifiedDataHelper(person.films));
                     dispatch(getSecondary(films));
                 });
 
                 res.data.results.map(async person => {
-                    const promiseStarShips = person.starships.map(async endpoint => {
-                        const starship = await axios.get(endpoint);
-                        return starship.data;
-                    });
-                    const starships = await Promise.all(promiseStarShips);
+                    const starships = await Promise.all(promisifiedDataHelper(person.starships));
                     dispatch(getTernary(starships));
                 });
-            } 
-        }catch (error) {
+            } else if(section === 'planets'){
+                res.data.results.map(async planet => {
+                    const films = await Promise.all(promisifiedDataHelper(planet.films));
+                    dispatch(getSecondary(films));
+                });
+                res.data.results.map(async planet => {
+                    const residents = await Promise.all(promisifiedDataHelper(planet.residents));
+                    dispatch(getTernary(residents));
+                });
+            } else {
+                res.data.results.map(async starship => {
+                    const films = await Promise.all(promisifiedDataHelper(starship.films));
+                    dispatch(getSecondary(films));
+                });
+                res.data.results.map(async starship => {
+                    const pilots = await Promise.all(promisifiedDataHelper(starship.pilots));
+                    dispatch(getTernary(pilots));
+                });
+            }
+        } catch (error) {
             console.log(error);
         }
     };
 };
+
+
 
 
 // REDUCER
