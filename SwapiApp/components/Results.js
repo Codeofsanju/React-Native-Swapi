@@ -7,10 +7,7 @@ import TabNavigator from './TabNavigator';
 
 class Results extends Component{
     render(){
-        this.props.results && console.log('IN RESULTS: ', this.props.results);
-        this.props.secondary && console.log(this.props.secondary);
-        this.props.ternary && console.log(this.props.ternary);
-        const {container, iconContainer} = styles; 
+        const {container} = styles; 
         // return this.props.results && this.props.secondary ? (
         //     <View style={container}>
         //     <IconsRow active={this.props.navigation.getParam('active')}/>
