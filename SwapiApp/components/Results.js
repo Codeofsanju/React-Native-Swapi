@@ -7,9 +7,10 @@ import IconsRow from './iconsRow';
 class Results extends Component{
     render(){
         console.log('IN RESULTS: ', this.props.results);
-        console.log('MOVIES', this.props.movies);
+        console.log(this.props.secondary);
+        console.log(this.props.ternary);
         const {container} = styles; 
-        return this.props.results && this.props.movies ? (
+        return this.props.results && this.props.secondary ? (
             <View style={container}>
             <IconsRow active={this.props.navigation.getParam('active')}/>
             { this.props.results.results.map(obj => {
@@ -17,7 +18,7 @@ class Results extends Component{
                 })
             } 
             {
-                this.props.movies.map(movie => {
+                this.props.secondary.map(movie => {
                     return <Text style={{color:'white'}} key={movie.episode_id}> {movie.title} </Text>
                 })
             }
@@ -36,7 +37,8 @@ class Results extends Component{
 const mapStateToProps = (state) => {
     return {
         results: state.searchRes,
-        movies: state.movies
+        secondary: state.secondaryData,
+        ternary: state.ternaryData
     };
 };
 

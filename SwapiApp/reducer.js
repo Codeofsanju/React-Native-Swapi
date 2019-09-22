@@ -4,7 +4,8 @@ const baseUrl = 'https://swapi.co/api';
 
 // ACTIONS
 const GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS';
-const GET_MOVIES = 'GET_MOVIES';
+const GET_SECONDARY = 'GET_SECONDARY';
+const GET_TERNARY = 'GET_TERNARY';
 const CLEAR = 'CLEAR';
 // ACTION CREATORS 
 const getSearch = (data) => {
@@ -14,9 +15,16 @@ const getSearch = (data) => {
     };
 };
 
-const getMovies = (data) => {
+const getSecondary = (data) => {
     return {
-        type: GET_MOVIES,
+        type: GET_SECONDARY,
+        data
+    };
+};
+
+const getTernary = (data) => {
+    return {
+        type: GET_TERNARY,
         data
     };
 };
@@ -45,9 +53,18 @@ export const getSearchThunk = (searchObj) => {
                         return movie.data;
                     });
                     const films = await Promise.all(promisefilms);
-                    dispatch(getMovies(films));
+                    dispatch(getSecondary(films));
                 });
-            } else dispatch(getMovies([]));
+
+                res.data.results.map(async person => {
+                    const promiseStarShips = person.starships.map(async endpoint => {
+                        const starship = await axios.get(endpoint);
+                        return starship.data;
+                    });
+                    const starships = await Promise.all(promiseStarShips);
+                    dispatch(getTernary(starships));
+                });
+            } 
         }catch (error) {
             console.log(error);
         }
@@ -60,8 +77,11 @@ const reducer = (state = {}, action) => {
     switch(action.type){
         case GET_SEARCH_RESULTS:
             return {...state, searchRes: action.data};
-        case GET_MOVIES:
-            return {...state, movies: action.data};
+        case GET_SECONDARY:
+            return {...state, secondaryData: action.data};
+
+        case GET_TERNARY:
+            return {...state, ternaryData: action.data};
 
         case CLEAR: {
             return {};
