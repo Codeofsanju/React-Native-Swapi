@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, FlatList, StyleSheet} from 'react-native';
+import CustomListItem from './CustomListItem';
 
 
 class CustomListView extends Component{
@@ -11,7 +12,7 @@ class CustomListView extends Component{
                     data={this.props.arr}
                     renderItem={({item}) => {
                         return (
-                            <Text style={{color:'white'}}> {item.name || item.title}</Text>
+                            <CustomListItem item={item}/>
                         );
                     }}
                     keyExtractor={item => item.name || item.title}

@@ -82,17 +82,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
     },
     input: {
-        color: '#FFE81F',
+        color: 'white',
         width: '50%',
-        borderWidth: 5,
-        borderColor: 'white',
+        borderWidth: 3,
+        borderColor: '#242323',
         borderRadius: 25,
         textAlign: "center",
-        marginTop: '20%'
+        marginTop: '20%',
+        backgroundColor: '#242323',
+        height: 5,
+        fontSize: 20
+        
     },
-    icon: {
-
-    }
 });
 
 

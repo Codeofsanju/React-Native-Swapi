@@ -2,8 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 72268,
+  "packagerPid": 50000,
   "expoServerNgrokUrl": "https://gs-6fc.anonymous.swapiapp.exp.direct",
   "packagerNgrokUrl": "https://packager.gs-6fc.anonymous.swapiapp.exp.direct",
-  "ngrokPid": 72277
+  "ngrokPid": 50020
 }
