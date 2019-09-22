@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import { connect } from 'react-redux';
 
 
@@ -7,9 +7,19 @@ class Results extends Component{
     render(){
         console.log('IN RESULTS: ', this.props.results);
         const {container} = styles; 
-        return(
+        return this.props.results ? (
             <View style={container}>
-                <Text style={{color:'white'}}>Results screen</Text>
+            { this.props.results.results.map(obj => {
+                    return (
+                        <Text key={obj.url} style={{color:'white'}}>{obj.name}</Text>
+                    );
+                })
+            } 
+            </View>
+        ) :
+        (
+            <View style={container}>
+                <ActivityIndicator size='large'/>
             </View>
         );
     }

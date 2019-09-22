@@ -45,7 +45,7 @@ class Search extends Component {
         const {container, input} = styles;
         return (
             <KeyboardAvoidingView style={container} behavior="padding" enabled>
-                    <FontAwesome onPress={() => this.onIconTap('spaceships')}  name='space-shuttle' color={this.state.selected === 'spaceships' ? '#FFE81F':'white'} size={60}/> 
+                    <FontAwesome onPress={() => this.onIconTap('starships')}  name='space-shuttle' color={this.state.selected === 'starships' ? '#FFE81F':'white'} size={60}/> 
                     <Ionicons onPress={() => this.onIconTap('people')} name='ios-people' color={this.state.selected === 'people' ? '#FFE81F':'white'} size={60}/>
                     <Ionicons onPress={() => this.onIconTap('planets')} name='md-planet' color={this.state.selected === 'planets' ? '#FFE81F':'white'} size={60}/>
                     <TextInput style={input}
