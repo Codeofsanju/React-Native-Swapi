@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {TouchableHighlight, Text} from 'react-native';
+import {withNavigation} from 'react-navigation';
 
 class CustomListItem extends Component{
     constructor(props){
@@ -7,7 +8,8 @@ class CustomListItem extends Component{
         this.handleSingleSelect = this.handleSingleSelect.bind(this);
     }
     handleSingleSelect(item){
-        console.log(item);
+        const {navigation} = this.props;
+        navigation.navigate('SingleItem', {item: item});
     }
     render(){
         const {item} = this.props;
@@ -23,4 +25,4 @@ class CustomListItem extends Component{
 
 
 
-export default CustomListItem;
+export default withNavigation(CustomListItem);
