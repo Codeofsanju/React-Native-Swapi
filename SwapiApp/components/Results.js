@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import { connect } from 'react-redux';
+import IconsRow from './iconsRow';
 
 
 class Results extends Component{
@@ -9,6 +10,7 @@ class Results extends Component{
         const {container} = styles; 
         return this.props.results ? (
             <View style={container}>
+            <IconsRow active={this.props.navigation.getParam('active')}/>
             { this.props.results.results.map(obj => {
                     return (
                         <Text key={obj.url} style={{color:'white'}}>{obj.name}</Text>
@@ -19,6 +21,7 @@ class Results extends Component{
         ) :
         (
             <View style={container}>
+                <IconsRow active={this.props.navigation.getParam('active')}/>
                 <ActivityIndicator size='large'/>
             </View>
         );

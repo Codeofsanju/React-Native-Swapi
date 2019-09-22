@@ -37,7 +37,7 @@ class Search extends Component {
         else {
             this.setState({formError: false});
             getRes({'section': selected, 'searchQuery': input});
-            navigation.push('Results');
+            navigation.push('Results', {active: this.state.selected});
         };
     }
 
