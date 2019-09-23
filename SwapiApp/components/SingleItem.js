@@ -19,7 +19,8 @@ const SingleItem = (props) => {
             passengers,
             director,
             producer,
-            release_date
+            release_date,
+            birth_year
         }  = item;
     return (
         <View style={container}>
@@ -63,6 +64,9 @@ const SingleItem = (props) => {
             }
             {
                 release_date && <Text style={info}> Release Date: {release_date}</Text>
+            }
+            {
+                birth_year && <Text style={info}> Birth Year: {birth_year}</Text>
             }
         </View>
     );
